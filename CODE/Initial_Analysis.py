@@ -31,12 +31,12 @@ def prompt_excel_file():
 # Example usage
 if __name__ == "__main__":
     path_raw_xl = prompt_excel_file()
-    path_ADE_db = r'V0 EXAMPLE\database'
-
+    
+    path_export = r'V0 EXAMPLE'
     """
     All calculations based off of this Database
     """
-    util.generate_ADE_DB(path_raw_xl, path_ADE_db)
+    util.generate_ADE_DB(path_raw_xl, path_export)
     """
     Used Pandas DF to Filter for only Neccessary Columns and calculates Current FTE grouping by worker
     Exports it to an excel file with some 
