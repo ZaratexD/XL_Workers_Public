@@ -123,8 +123,37 @@ def add_buckets(path_xl, path_ADE):
         """
         df_buckets = pd.read_sql_query(query, conn_ADE)
         
-        # Read the Excel file into a DataFrame
-        df_existing = pd.read_excel(path_xl)
+        query_general = """
+        SELECT *, [Current FTE]*[TOTAL FULL TIME BASE SALARY] AS [X-Comp]
+        FROM
+                (SELECT
+                    Worker,
+                    [EMP ID],
+                    [Job Profile],
+                    [Pay Rate Type],
+                    [Position Start Date],
+                    [Position End Date],
+                    SUM(CASE 
+                            WHEN [Base Pay Projected Distribution Amount] > 0 
+                            THEN [Distribution FTE] 
+                            ELSE 0  
+                        END) AS [Current FTE],
+                    (CASE 
+                            WHEN [Job Profile] LIKE '%Student Assistant%'
+                            THEN [Base Pay Projected Distribution Amount] * 800
+                            ELSE ([General Salary Plan Amount (Full Time Rate)] * 12)
+                        END) AS [TOTAL FULL TIME BASE SALARY],
+                    (CASE
+                        WHEN [Allowance Plan] = 'UWP - Practice Plan'
+                        THEN [Annualized Amount]
+                        ELSE 0
+                    END) AS [Y-Comp]
+                FROM [ADE WD]
+                GROUP BY Worker, [EMP ID], [Job Profile], [Pay Rate Type]
+                HAVING [TOTAL FULL TIME BASE SALARY] > 0) AS JOE
+        """
+        df_existing = pd.read_sql_query(query_general, conn_ADE)
+
         
         # Get distinct BUCKETS and add columns for each BUCKET
         buckets = df_buckets['BUCKET'].unique()

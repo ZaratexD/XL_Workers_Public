@@ -48,6 +48,6 @@ if __name__ == "__main__":
     #TODO: add prompt for initial run an unassigned allocation budgets
     util.add_buckets(path_export, path_ADE_db)
     util.add_buckets_ads(path_export_ads, path_ADE_db)
-    util.combine_excel_files(path_export, path_export_ads, path_raw_xl, path_final)
+    #util.combine_excel_files(path_export, path_export_ads, path_raw_xl, path_final)
 
     print('Workday Report R0134 converted into FY 25 Salary Allocation.xslx')
