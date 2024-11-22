@@ -33,6 +33,28 @@ A public version demonstrating the transformation of raw Workday data into an Ex
 
 ---
 
+## Dependencies
+
+This project requires the following libraries and versions:
+
+| Library       | Version  |
+|---------------|----------|
+| `pandas`      | 1.5.3    |
+| `openpyxl`    | 3.1.2    |
+| `numpy`       | 1.23.5   |
+| `matplotlib`  | 3.7.2    |
+
+### Environment Setup
+To set up the environment using Conda:
+
+1. Ensure you have mini-Conda installed.  
+   *(If not, download and install it from [Anaconda](https://www.anaconda.com/products/distribution).)*
+
+2. Use the provided `environment.yml` file to create the environment:
+   ```bash
+   conda env create -f environment.yml
+
+
 ## Notes
 - Ensure security clearance for Workday access.
 - Custom Budget Names help improve clarity in fiscal analysis.
